@@ -3,7 +3,6 @@
     padding: 0;
     box-sizing: border-box;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    /* Evita que el usuario haga zoom sin querer en el celular */
     touch-action: manipulation; 
 }
 
@@ -12,18 +11,59 @@ body {
     color: #e0e0e0;
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: flex-start; 
     min-height: 100vh;
-    padding: 10px;
+    padding: 15px; 
 }
 
-.contenedor {
+/* --- ESTILOS DEL AVISO FLOTANTE (TOAST) --- */
+.toast-oculto {
+    opacity: 0;
+    visibility: hidden;
+    transform: translate(-50%, -20px); /* Animación de subida */
+    transition: all 0.4s ease-in-out;
+}
+
+#toast {
+    position: fixed;
+    top: 30px; /* Aparece cerca de la parte superior */
+    left: 50%;
+    transform: translate(-50%, 0);
+    background-color: #252525;
+    color: #fff;
+    padding: 20px 30px;
+    border-radius: 10px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+    z-index: 1000; /* Por encima de todo */
+    text-align: center;
+    border-left: 5px solid #4CAF50;
+    min-width: 300px;
+    max-width: 90%;
+    pointer-events: none; /* Permite hacer clic a través de él si es necesario */
+}
+
+#toast.error {
+    border-left-color: #f44336;
+}
+#toast.pista {
+    border-left-color: #ffeb3b;
+}
+
+#mensaje {
+    font-size: 1.1em;
+    line-height: 1.5;
+}
+
+/* --- RESTO DEL DISEÑO --- */
+.app-container {
     width: 100%;
-    max-width: 800px;
+    max-width: 1400px; 
+    display: flex;
+    flex-direction: column;
     background-color: #1e1e1e;
     border-radius: 15px;
     box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-    padding: 15px; /* Un poco menos de padding para celular */
+    padding: 20px;
     border: 1px solid #333;
 }
 
@@ -37,19 +77,17 @@ header {
 header h1 {
     color: #4CAF50;
     letter-spacing: 2px;
-    font-size: 1.5em; /* Letra más pequeña en celular */
+    font-size: 1.8em;
 }
 
 header p {
     color: #888;
-    font-size: 0.8em;
+    font-size: 0.9em;
 }
 
-/* Panel de objetivo y puntaje */
 .panel-superior {
     display: flex;
-    flex-direction: column; /* En celular se apilan */
-    gap: 10px;
+    justify-content: space-between;
     background-color: #252525;
     padding: 15px;
     border-radius: 10px;
@@ -57,49 +95,41 @@ header p {
     border-left: 5px solid #4CAF50;
 }
 
-@media (min-width: 500px) {
-    .panel-superior {
-        flex-direction: row;
-        justify-content: space-between;
-    }
-}
-
 .panel-superior h2 {
-    font-size: 0.8em;
+    font-size: 0.9em;
     color: #888;
     text-transform: uppercase;
 }
 
 #nombre-alcano {
-    font-size: 1.5em;
+    font-size: 1.8em;
     font-weight: bold;
     color: #ffeb3b;
 }
 
 #puntos {
-    font-size: 1.5em;
+    font-size: 1.8em;
     font-weight: bold;
     color: #4CAF50;
 }
 
-/* Botones de herramientas */
 .herramientas {
     display: flex;
-    gap: 8px;
+    gap: 10px;
     margin-bottom: 15px;
     flex-wrap: wrap;
-    justify-content: center;
 }
 
 .btn-herramienta, .btn-accion {
-    padding: 10px 12px;
+    padding: 12px 20px;
     border: none;
     border-radius: 8px;
     cursor: pointer;
     font-weight: bold;
     transition: all 0.2s;
-    font-size: 0.85em;
-    flex: 1 1 auto; /* Se adaptan al espacio */
+    font-size: 0.95em;
+    flex: 1; 
+    max-width: 250px; 
 }
 
 .btn-herramienta {
@@ -120,68 +150,34 @@ header p {
 .btn-accion {
     background-color: #4CAF50;
     color: white;
-    width: 100%; /* En celular ocupa toda la fila */
+    flex: 0 0 auto; 
+    margin-left: auto; 
 }
 
 .btn-accion:hover {
     background-color: #45a049;
 }
 
-@media (min-width: 500px) {
-    .btn-accion {
-        width: auto;
-        margin-left: auto; /* Lo empuja a la derecha en PC */
-    }
-}
-
-/* Lienzo de juego */
 .lienzo-contenedor {
     width: 100%;
-    /* Hacemos el área de trabajo mucho más grande */
-    height: 65vh; 
-    min-height: 400px; 
-    max-height: 600px; /* Aumentado de 450px a 600px */
+    height: 600px; 
     background-color: #0a0a0a;
     border-radius: 10px;
     border: 2px dashed #444;
     position: relative;
-    overflow: hidden;
+    overflow: auto; 
     background-image: 
         linear-gradient(#222 1px, transparent 1px),
         linear-gradient(90deg, #222 1px, transparent 1px);
-    /* Aseguramos que el fondo se ajuste a la cuadrícula */
-    background-size: 60px 60px; 
 }
 
 .lienzo {
-    width: 100%;
-    height: 100%;
+    width: 1500px; 
+    height: 1200px; 
     position: relative;
 }
 
-/* Mensajes */
-.mensajes {
-    text-align: center;
-    margin-top: 15px;
-    padding: 10px;
-    background-color: #252525;
-    border-radius: 8px;
-    min-height: 60px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-#mensaje {
-    color: #aaa;
-    font-size: 0.9em;
-    text-align: center;
-}
-
-/* --- ESTILOS PARA LOS ÁTOMOS Y ENLACES --- */
 .atomo {
-    width: 60px;
-    height: 60px;
     background-color: #333;
     border: 3px solid #888;
     border-radius: 50%;
@@ -191,13 +187,11 @@ header p {
     align-items: center;
     color: white;
     font-weight: bold;
-    font-size: 1.2em; /* Letra un poco más pequeña */
     cursor: pointer;
     user-select: none;
     z-index: 10;
     transition: background-color 0.2s, border-color 0.2s;
     transform: translate(-50%, -50%); 
-
 }
 
 .atomo:hover {
@@ -225,4 +219,13 @@ header p {
     transform-origin: left center;
     z-index: 5;
     border-radius: 3px;
+}
+
+@media (max-width: 600px) {
+    .app-container { padding: 10px; }
+    .herramientas { gap: 5px; }
+    .btn-herramienta, .btn-accion { padding: 10px; font-size: 0.8em; }
+    .btn-accion { margin-left: 0; }
+    .lienzo-contenedor { height: 500px; }
+    .lienzo { width: 1000px; height: 1000px; }
 }

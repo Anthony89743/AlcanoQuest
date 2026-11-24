@@ -7,7 +7,12 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="contenedor">
+    <!-- AVISO FLOTANTE (TOAST) -->
+    <div id="toast" class="toast-oculto">
+        <p id="mensaje"></p>
+    </div>
+
+    <main class="app-container">
         <header>
             <h1>AlcanoQuest</h1>
             <p>Arma la cadena carbonada</p>
@@ -36,11 +41,7 @@
         <section class="lienzo-contenedor">
             <div id="lienzo" class="lienzo"></div>
         </section>
-
-        <section class="mensajes">
-            <p id="mensaje">Haz clic en "+ Carbono" para empezar.</p>
-        </section>
-    </div>
+    </main>
 
     <script src="script.js"></script>
 </body>
