@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AlcanoQuest - Arma la Cadena</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="contenedor">
+        <header>
+            <h1>AlcanoQuest</h1>
+            <p>Arma la cadena carbonada</p>
+        </header>
+
+        <section class="panel-superior">
+            <div class="instruccion">
+                <h2>Objetivo:</h2>
+                <p id="nombre-alcano">2-metilbutano</p>
+            </div>
+            <div class="puntaje">
+                <h2>Puntaje:</h2>
+                <p id="puntos">0</p>
+            </div>
+        </section>
+
+        <section class="herramientas">
+            <button id="btn-carbono" class="btn-herramienta">+ Carbono (C)</button>
+            <button id="btn-unir" class="btn-herramienta activo">Modo: Unir</button>
+            <button id="btn-borrar" class="btn-herramienta">Borrar último</button>
+            <button id="btn-reiniciar" class="btn-herramienta">Reiniciar Nivel</button>
+            <button id="btn-pista" class="btn-herramienta" style="color: #ffeb3b;">💡 Pista</button>
+            <button id="btn-verificar" class="btn-accion">Verificar</button>
+        </section>
+
+        <section class="lienzo-contenedor">
+            <div id="lienzo" class="lienzo"></div>
+        </section>
+
+        <section class="mensajes">
+            <p id="mensaje">Haz clic en "+ Carbono" para empezar.</p>
+        </section>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
